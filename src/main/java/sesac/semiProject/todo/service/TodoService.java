@@ -2,6 +2,7 @@ package sesac.semiProject.todo.service;
 
 import java.util.List;
 
+import sesac.semiProject.common.dto.ApiResponseDto;
 import sesac.semiProject.todo.dto.TodoRequestDto;
 import sesac.semiProject.todo.dto.TodoResponseDto;
 
@@ -18,4 +19,19 @@ public interface TodoService {
      * @return 모든 할 일 목록
      */
     List<TodoResponseDto> getAllTodos();
+
+    /**
+     * 특정 할 일을 수정합니다.
+     * @param id 수정할 할 일의 id입니다.
+     * @param requestDto 수정할 정보입니다.
+     * @return 수정이 완료된 할 일을 반환합니다.
+     */
+    TodoResponseDto updateTodo(int id, TodoRequestDto requestDto);
+
+    /**
+     * 특정 할 일을 삭제합니다.
+     * @param id 삭제할 할 일의 id입니다.
+     * @return 삭제 완료 메시지를 반환합니다.
+     */
+    ApiResponseDto deleteTodo(int id);
 }

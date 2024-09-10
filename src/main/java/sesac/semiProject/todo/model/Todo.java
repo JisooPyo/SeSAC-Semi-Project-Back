@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import sesac.semiProject.todo.dto.TodoRequestDto;
 import sesac.semiProject.todo.dto.TodoResponseDto;
 
 @Entity
@@ -37,5 +38,11 @@ public class Todo {
             .completed(completed)
             .dueDate(dueDate)
             .build();
+    }
+
+    public void update(TodoRequestDto requestDto) {
+        this.content = requestDto.getContent();
+        this.completed = requestDto.isCompleted();
+        this.dueDate = requestDto.getDueDate();
     }
 }

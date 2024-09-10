@@ -15,11 +15,12 @@ public class TodoRequestDto {
     @NotBlank(message = ValidationConstants.EMPTY_CONTENT)
     private String content;
     private LocalDate dueDate;
+    private boolean completed;
 
     public Todo toEntity() {
         return Todo.builder()
             .content(content)
-            .completed(false)
+            .completed(completed)
             .dueDate(dueDate)
             .build();
     }
