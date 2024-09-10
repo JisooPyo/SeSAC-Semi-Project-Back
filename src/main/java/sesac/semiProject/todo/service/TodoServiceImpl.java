@@ -2,9 +2,15 @@ package sesac.semiProject.todo.service;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
+import sesac.semiProject.common.constants.TodoConstants;
+import sesac.semiProject.common.dto.ApiResponseDto;
+import sesac.semiProject.common.exception.CustomErrorCode;
+import sesac.semiProject.common.exception.CustomException;
 import sesac.semiProject.todo.dto.TodoRequestDto;
 import sesac.semiProject.todo.dto.TodoResponseDto;
 import sesac.semiProject.todo.model.Todo;
@@ -26,5 +32,25 @@ public class TodoServiceImpl implements TodoService {
     public List<TodoResponseDto> getAllTodos() {
         List<Todo> todos = todoRepository.findAllByOrderByIdAsc();
         return todos.stream().map(Todo::toDto).toList();
+    }
+
+    @Override
+    public TodoResponseDto updateTodo(int id, TodoRequestDto requestDto) {
+        Todo todo = findTodo(id);
+        todo.update(requestDto);
+        return todo.toDto();
+    }
+
+    @Override
+    public ApiResponseDto deleteTodo(int id) {
+        Todo todo = findTodo(id);
+        todoRepository.deleteById(id);
+        return new ApiResponseDto(HttpStatus.OK.value(), TodoConstants.DELETE_TODO_SUCCESS);
+    }
+
+    private Todo findTodo(int id) {
+        return todoRepository.findById(id).orElseThrow(
+            () -> new CustomException(CustomErrorCode.TODO_NOT_FOUND)
+        );
     }
 }
