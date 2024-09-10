@@ -1,5 +1,7 @@
 package sesac.semiProject.todo.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import lombok.RequiredArgsConstructor;
@@ -18,5 +20,11 @@ public class TodoServiceImpl implements TodoService {
         Todo todo = requestDto.toEntity();
         Todo savedTodo = todoRepository.save(todo);
         return savedTodo.toDto();
+    }
+
+    @Override
+    public List<TodoResponseDto> getAllTodos() {
+        List<Todo> todos = todoRepository.findAllByOrderByIdAsc();
+        return todos.stream().map(Todo::toDto).toList();
     }
 }
