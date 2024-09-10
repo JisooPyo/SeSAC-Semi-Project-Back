@@ -14,14 +14,12 @@ import sesac.semiProject.todo.model.Todo;
 public class TodoRequestDto {
     @NotBlank(message = ValidationConstants.EMPTY_CONTENT)
     private String content;
-    @NotNull
-    private Boolean completed;
     private LocalDate dueDate;
 
     public Todo toEntity() {
         return Todo.builder()
             .content(content)
-            .completed(completed)
+            .completed(false)
             .dueDate(dueDate)
             .build();
     }
