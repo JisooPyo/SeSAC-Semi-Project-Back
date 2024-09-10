@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import sesac.semiProject.todo.dto.TodoRequestDto;
 import sesac.semiProject.todo.dto.TodoResponseDto;
@@ -18,7 +19,7 @@ public class TodoController {
     private final TodoService todoService;
 
     @PostMapping("/todos")
-    public ResponseEntity<TodoResponseDto> createTodo(@RequestBody TodoRequestDto requestDto) {
+    public ResponseEntity<TodoResponseDto> createTodo(@RequestBody @Valid TodoRequestDto requestDto) {
         return ResponseEntity.ok().body(todoService.createTodo(requestDto));
     }
 }
