@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import sesac.semiProject.common.constants.TodoConstants;
 import sesac.semiProject.common.dto.ApiResponseDto;
@@ -18,6 +19,7 @@ import sesac.semiProject.todo.repository.TodoRepository;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class TodoServiceImpl implements TodoService {
     private final TodoRepository todoRepository;
 
