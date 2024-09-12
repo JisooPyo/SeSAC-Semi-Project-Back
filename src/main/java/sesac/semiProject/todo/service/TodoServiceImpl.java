@@ -3,7 +3,6 @@ package sesac.semiProject.todo.service;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 
 import jakarta.transaction.Transactional;
@@ -12,6 +11,7 @@ import sesac.semiProject.common.constants.TodoConstants;
 import sesac.semiProject.common.dto.ApiResponseDto;
 import sesac.semiProject.common.exception.CustomErrorCode;
 import sesac.semiProject.common.exception.CustomException;
+import sesac.semiProject.member.model.Member;
 import sesac.semiProject.todo.dto.TodoRequestDto;
 import sesac.semiProject.todo.dto.TodoResponseDto;
 import sesac.semiProject.todo.model.Todo;
@@ -24,8 +24,8 @@ public class TodoServiceImpl implements TodoService {
     private final TodoRepository todoRepository;
 
     @Override
-    public TodoResponseDto createTodo(TodoRequestDto requestDto) {
-        Todo todo = requestDto.toEntity();
+    public TodoResponseDto createTodo(TodoRequestDto requestDto, Member member) {
+        Todo todo = requestDto.toEntity(member);
         Todo savedTodo = todoRepository.save(todo);
         return savedTodo.toDto();
     }
