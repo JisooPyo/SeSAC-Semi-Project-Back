@@ -36,8 +36,10 @@ public interface TodoService {
 
     /**
      * 특정 할 일을 삭제합니다.
-     * @param id 삭제할 할 일의 id입니다.
+     *
+     * @param id     삭제할 할 일의 id입니다.
+     * @param member 요청한 멤버입니다.
      * @return 삭제 완료 메시지를 반환합니다.
      */
-    ApiResponseDto deleteTodo(int id);
+    ApiResponseDto deleteTodo(int id, Member member);
 }

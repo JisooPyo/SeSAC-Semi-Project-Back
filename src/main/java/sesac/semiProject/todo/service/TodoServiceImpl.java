@@ -47,8 +47,11 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public ApiResponseDto deleteTodo(int id) {
+    public ApiResponseDto deleteTodo(int id, Member member) {
         Todo todo = findTodo(id);
+        if(!todo.getMember().getId().equals(member.getId())) {
+            throw new CustomException(CustomErrorCode.NOT_AUTHORIZED);
+        }
         todoRepository.deleteById(id);
         return new ApiResponseDto(HttpStatus.OK.value(), TodoConstants.DELETE_TODO_SUCCESS);
     }

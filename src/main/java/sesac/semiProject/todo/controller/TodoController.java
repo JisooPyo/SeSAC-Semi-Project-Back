@@ -54,6 +54,6 @@ public class TodoController {
         @PathVariable int id,
         @AuthenticationPrincipal UserDetailsImpl userDetails
     ) {
-        return ResponseEntity.ok().body(todoService.deleteTodo(id));
+        return ResponseEntity.ok().body(todoService.deleteTodo(id, userDetails.getMember()));
     }
 }
