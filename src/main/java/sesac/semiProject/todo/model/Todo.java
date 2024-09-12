@@ -34,7 +34,7 @@ public class Todo {
     private Boolean completed;  // 완료 여부
     private LocalDate dueDate;  // 마감일
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Member member;
 
     public TodoResponseDto toDto() {

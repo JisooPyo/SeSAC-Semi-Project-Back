@@ -6,4 +6,5 @@ public class ValidationConstants {
     public static final String TOO_SHORT_PASSWORD = "비밀번호는 8자 이상이어야 합니다.";
     public static final String PASSWORD_REGULAR_EXPRESSION = "^(?=.*[a-z])(?=.*\\d)(?=.*[!?@#$%^&*_=+-]).+$";
     public static final String INVALID_PASSWORD = "비밀번호는 영소문자, 숫자, 특수문자(!,?,@,#,$,%,^,&,*,_,=,+,-)가 한 개 이상 포함되어야 합니다.";
+    public static final String TOO_LONG_NICKNAME = "닉네임은 50자를 넘을 수 없습니다.";
 }

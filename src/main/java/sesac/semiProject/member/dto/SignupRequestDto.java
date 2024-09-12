@@ -27,6 +27,7 @@ public class SignupRequestDto {
     @NotBlank(message = ValidationConstants.EMPTY_CONTENT)
     private String password;
 
+    @Size(max = 50, message = ValidationConstants.TOO_LONG_NICKNAME)
     @NotBlank(message = ValidationConstants.EMPTY_CONTENT)
     private String nickname;
 }

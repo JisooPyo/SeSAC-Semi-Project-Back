@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import sesac.semiProject.common.constants.ValidationConstants;
+import sesac.semiProject.member.model.Member;
 import sesac.semiProject.todo.model.Todo;
 
 @Getter
@@ -17,11 +18,12 @@ public class TodoRequestDto {
     private LocalDate dueDate;
     private boolean completed;
 
-    public Todo toEntity() {
+    public Todo toEntity(Member member) {
         return Todo.builder()
             .content(content)
             .completed(completed)
             .dueDate(dueDate)
+            .member(member)
             .build();
     }
 }
