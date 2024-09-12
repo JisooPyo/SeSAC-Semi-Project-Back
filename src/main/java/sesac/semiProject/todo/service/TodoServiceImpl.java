@@ -37,8 +37,11 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public TodoResponseDto updateTodo(int id, TodoRequestDto requestDto) {
+    public TodoResponseDto updateTodo(int id, TodoRequestDto requestDto, Member member) {
         Todo todo = findTodo(id);
+        if(!todo.getMember().getId().equals(member.getId())) {
+            throw new CustomException(CustomErrorCode.NOT_AUTHORIZED);
+        }
         todo.update(requestDto);
         return todo.toDto();
     }

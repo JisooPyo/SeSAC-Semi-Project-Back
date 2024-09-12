@@ -46,7 +46,7 @@ public class TodoController {
         @RequestBody @Valid TodoRequestDto requestDto,
         @AuthenticationPrincipal UserDetailsImpl userDetails
     ) {
-        return ResponseEntity.ok().body(todoService.updateTodo(id, requestDto));
+        return ResponseEntity.ok().body(todoService.updateTodo(id, requestDto, userDetails.getMember()));
     }
 
     @DeleteMapping("/todos/{id}")

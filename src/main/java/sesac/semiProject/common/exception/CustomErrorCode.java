@@ -11,7 +11,8 @@ import sesac.semiProject.common.constants.ErrorMsgConstants;
 public enum CustomErrorCode {
     TODO_NOT_FOUND(HttpStatus.NOT_FOUND.value(), ErrorMsgConstants.TODO_NOT_FOUND),
     ALREADY_ACCOUNT_EXISTS(HttpStatus.BAD_REQUEST.value(), ErrorMsgConstants.ALREADY_ACCOUNT_EXISTS),
-    INVALID_ACCESS(HttpStatus.BAD_REQUEST.value(), ErrorMsgConstants.INVALID_ACCESS);
+    INVALID_ACCESS(HttpStatus.BAD_REQUEST.value(), ErrorMsgConstants.INVALID_ACCESS),
+    NOT_AUTHORIZED(HttpStatus.FORBIDDEN.value(), ErrorMsgConstants.NOT_AUTHORIZED);
 
     private final int statusCode;
     private final String message;
