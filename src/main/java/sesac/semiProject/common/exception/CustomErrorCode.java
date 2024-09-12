@@ -9,7 +9,8 @@ import sesac.semiProject.common.constants.ErrorMsgConstants;
 @Getter
 @AllArgsConstructor
 public enum CustomErrorCode {
-    TODO_NOT_FOUND(HttpStatus.NOT_FOUND.value(), ErrorMsgConstants.TODO_NOT_FOUND);
+    TODO_NOT_FOUND(HttpStatus.NOT_FOUND.value(), ErrorMsgConstants.TODO_NOT_FOUND),
+    ALREADY_ACCOUNT_EXISTS(HttpStatus.BAD_REQUEST.value(), ErrorMsgConstants.ALREADY_ACCOUNT_EXISTS);
 
     private final int statusCode;
     private final String message;
