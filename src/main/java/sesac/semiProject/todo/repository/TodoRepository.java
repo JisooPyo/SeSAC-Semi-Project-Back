@@ -9,5 +9,5 @@ import sesac.semiProject.todo.model.Todo;
 
 @Repository
 public interface TodoRepository extends JpaRepository<Todo, Integer> {
-    List<Todo> findAllByOrderByIdAsc();
+    List<Todo> findAllByMember_IdOrderByIdAsc(int id);
 }

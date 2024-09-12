@@ -37,7 +37,7 @@ public class TodoController {
 
     @GetMapping("/todos")
     public ResponseEntity<List<TodoResponseDto>> getAllTodos(@AuthenticationPrincipal UserDetailsImpl userDetails) {
-        return ResponseEntity.ok().body(todoService.getAllTodos());
+        return ResponseEntity.ok().body(todoService.getAllTodos(userDetails.getMember()));
     }
 
     @PutMapping("/todos/{id}")

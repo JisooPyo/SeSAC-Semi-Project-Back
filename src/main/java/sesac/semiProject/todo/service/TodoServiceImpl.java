@@ -31,8 +31,8 @@ public class TodoServiceImpl implements TodoService {
     }
 
     @Override
-    public List<TodoResponseDto> getAllTodos() {
-        List<Todo> todos = todoRepository.findAllByOrderByIdAsc();
+    public List<TodoResponseDto> getAllTodos(Member member) {
+        List<Todo> todos = todoRepository.findAllByMember_IdOrderByIdAsc(member.getId());
         return todos.stream().map(Todo::toDto).toList();
     }
 
