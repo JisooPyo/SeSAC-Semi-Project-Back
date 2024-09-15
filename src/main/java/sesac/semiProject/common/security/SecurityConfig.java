@@ -49,6 +49,7 @@ public class SecurityConfig {
             config.addAllowedMethod("*");
             config.addAllowedOrigin("http://localhost:5173");
             config.setMaxAge(3600L);
+            config.addExposedHeader("Authorization");
             return config;
         }));
 
