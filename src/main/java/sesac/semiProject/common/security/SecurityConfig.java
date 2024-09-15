@@ -1,8 +1,5 @@
 package sesac.semiProject.common.security;
 
-import jakarta.servlet.http.HttpServletRequest;
-import lombok.RequiredArgsConstructor;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -16,9 +13,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.filter.CorsFilter;
+
+import lombok.RequiredArgsConstructor;
 
 @Configuration
 @RequiredArgsConstructor
@@ -63,8 +59,8 @@ public class SecurityConfig {
         http.authorizeHttpRequests(authorizeHttpRequests ->
             authorizeHttpRequests
                 // '/api/signup', '/api/login' 요청 POST 접근 허가
-                .requestMatchers(HttpMethod.POST, "/api/signup").permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/login").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/members/signup").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/members/login").permitAll()
                 // swagger-ui 와 관련된 모든 요청 접근 허가
                 .requestMatchers("/swagger-ui/**", "/v3/**").permitAll()
                 .anyRequest().authenticated() // 그 외 모든 요청 인증처리
