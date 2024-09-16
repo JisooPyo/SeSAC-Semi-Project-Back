@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -23,7 +24,6 @@ import lombok.RequiredArgsConstructor;
 public class SecurityConfig {
     private final JwtUtil jwtUtil;
     private final UserDetailsServiceImpl userDetailsService;
-    private final AuthenticationConfiguration authenticationConfiguration;
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
@@ -63,7 +63,15 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.POST, "/api/members/login").permitAll()
                 // swagger-ui 와 관련된 모든 요청 접근 허가
                 .requestMatchers("/swagger-ui/**", "/v3/**").permitAll()
+                // h2 console 요청 접근 허가
+                .requestMatchers("/h2-console/**", "/favicon.ico").permitAll()
                 .anyRequest().authenticated() // 그 외 모든 요청 인증처리
+        );
+
+        // H2-console web 연결 옵션
+        http.headers(
+            headersConfigurer ->
+                headersConfigurer.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin)
         );
 
         // 필터 관리
