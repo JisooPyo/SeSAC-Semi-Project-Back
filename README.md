@@ -4,7 +4,7 @@
 
 기간: 24.09.10 ~
 
-💁‍♀️ 기능 소개
+### 💁‍♀️ 기능 소개
 
 1. 회원가입, JWT 인증 방식의 로그인(Spring Security 사용)
 3. 할 일 추가
@@ -24,6 +24,46 @@
 <img src="https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white">&nbsp;
 <img src="https://img.shields.io/badge/Gradle-02303A?style=flat-square&logo=gradle&logoColor=white">&nbsp;
 <img src="https://img.shields.io/badge/Notion-000000?style=flat-square&logo=notion&logoColor=white">&nbsp;
+
+<br>
+
+## 🖥️ 설치 및 실행
+
+* 프로젝트 클론
+
+```bash
+git clone https://github.com/JisooPyo/SeSAC-Semi-Project-Back.git
+
+cd SeSAC-Semi-Project-Back
+```
+
+* 프로젝트 설정 파일 추가
+  * `src/main/resources` 폴더 생성
+  * `src/main/resources/application.properties` 파일 생성
+
+```bash
+# DB
+spring.datasource.driver-class-name=org.h2.Driver
+spring.datasource.url=jdbc:h2:mem:test
+spring.datasource.username=sa
+spring.h2.console.enabled=true
+spring.h2.console.path=/h2-console
+
+# Hibernate
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.properties.hibernate.format_sql=true
+spring.jpa.properties.hibernate.show_sql=true
+
+jwt.secret.key={Base64로 Encoding된 문자열}
+```
+
+* 프로젝트 실행
+
+```bash
+./gradlew build
+
+./gradlew bootRun
+```
 
 <br>
 
