@@ -27,6 +27,14 @@
 
 <br>
 
+## 🎯 트러블 슈팅
+
+###### 해당 항목을 클릭하면 트러블 슈팅 과정을 정리한 블로그로 이동합니다.
+
+* [CORS란? Spring Security에 따른 CORS 설정](https://argente29.tistory.com/151)
+
+<br>
+
 ## 🖥️ 설치 및 실행
 
 * 프로젝트 클론
