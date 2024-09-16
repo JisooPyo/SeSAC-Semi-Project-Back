@@ -77,6 +77,8 @@ jwt.secret.key={Base64로 Encoding된 문자열}
 
 ## 🔄️ React와 연동
 
+[React Github Repository](https://github.com/JisooPyo/SeSAC-Semi-Project-Front)
+
 |회원가입|로그인|
 |:---:|:---:|
 |<img src="https://github.com/user-attachments/assets/c8955092-8c29-4499-ae15-73d095b8f482">|![image](https://github.com/user-attachments/assets/5fa41195-d0ab-4dbd-b5f9-8c1d1241895e)|
