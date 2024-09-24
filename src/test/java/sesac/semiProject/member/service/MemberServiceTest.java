@@ -58,7 +58,7 @@ class MemberServiceTest {
         .build();
 
     @Test
-    @DisplayName("signup - 성공")
+    @DisplayName("signup: 성공")
     void signup() {
         // given
         given(memberRepository.findByEmail(anyString())).willReturn(Optional.empty());
@@ -74,7 +74,7 @@ class MemberServiceTest {
     }
 
     @Test
-    @DisplayName("signup - 실패: 이미 가입한 계정이 있는 경우")
+    @DisplayName("signup: 실패 - 이미 가입한 계정이 있는 경우")
     void signupFailureByAccountExists() {
         // given
         Member member = new Member();
@@ -88,7 +88,7 @@ class MemberServiceTest {
     }
 
     @Test()
-    @DisplayName("login - 성공")
+    @DisplayName("login: 성공")
     void login() {
         // given
         given(jwtUtil.createToken(anyString())).willReturn("token");
@@ -106,7 +106,7 @@ class MemberServiceTest {
     }
 
     @Test
-    @DisplayName("login - 실패: 계정이 존재하지 않는 경우")
+    @DisplayName("login: 실패 - 계정이 존재하지 않는 경우")
     void loginFailureByAccountNotExists() {
         // given
         given(memberRepository.findByEmail(anyString())).willReturn(Optional.empty());
@@ -119,7 +119,7 @@ class MemberServiceTest {
     }
 
     @Test
-    @DisplayName("login - 실패: 비밀번호가 일치하지 않는 경우")
+    @DisplayName("login: 실패 - 비밀번호가 일치하지 않는 경우")
     void loginFailureByPasswordNotMatch() {
         // given
         Member member = Member.builder().password("temp-password").build();
