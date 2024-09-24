@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import sesac.semiProject.common.constants.ValidationConstants;
@@ -12,6 +13,7 @@ import sesac.semiProject.todo.model.Todo;
 
 @Getter
 @Setter
+@Builder
 public class TodoRequestDto {
     @NotBlank(message = ValidationConstants.EMPTY_CONTENT)
     private String content;
