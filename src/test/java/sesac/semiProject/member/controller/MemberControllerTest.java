@@ -19,7 +19,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.http.HttpServletResponse;
@@ -54,7 +53,11 @@ class MemberControllerTest {
 
     ObjectMapper objectMapper;
 
-    String nickname = "testUser";
+    String testEmail = "test-user@email.com";
+    String testPassword = "password123!";
+    String testNickname = "testUser";
+    int okStatus = HttpStatus.OK.value();
+    String testMessage = "test-message";
 
     @BeforeEach
     void setUp() {
@@ -70,13 +73,13 @@ class MemberControllerTest {
     @WithMockUser
     void getNickname() throws Exception {
         // given
-        Member member = Member.builder().nickname(nickname).build();
+        Member member = Member.builder().nickname(testNickname).build();
         given(userDetails.getMember()).willReturn(member);
 
         // when
         mockMvc.perform(get("/api/members/nickname"))
             .andExpect(status().isOk())
-            .andExpect(content().string(nickname));
+            .andExpect(content().string(testNickname));
     }
 
     @Test
@@ -85,12 +88,10 @@ class MemberControllerTest {
         // given
         LoginRequestDto loginRequestDto =
             LoginRequestDto.builder()
-                .email("test-user@email.com")
-                .password("test-password")
+                .email(testEmail)
+                .password(testPassword)
                 .build();
-        int expectedStatusCode = HttpStatus.OK.value();
-        String expectedMessage = "test-message";
-        ApiResponseDto responseDto = new ApiResponseDto(expectedStatusCode, expectedMessage);
+        ApiResponseDto responseDto = new ApiResponseDto(okStatus, testMessage);
         given(memberService.login(any(LoginRequestDto.class), any(HttpServletResponse.class)))
             .willReturn(responseDto);
 
@@ -99,8 +100,8 @@ class MemberControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(loginRequestDto)))
             .andExpect(status().isOk())
-            .andExpect(jsonPath("$.statusCode").value(expectedStatusCode))
-            .andExpect(jsonPath("$.message").value(expectedMessage));
+            .andExpect(jsonPath("$.statusCode").value(okStatus))
+            .andExpect(jsonPath("$.message").value(testMessage));
     }
 
     @Test
@@ -109,13 +110,11 @@ class MemberControllerTest {
         // given
         SignupRequestDto signupRequestDto =
             SignupRequestDto.builder()
-                .email("test-user@email.com")
-                .password("password123!")
-                .nickname("test-nickname")
+                .email(testEmail)
+                .password(testPassword)
+                .nickname(testNickname)
                 .build();
-        int expectedStatusCode = HttpStatus.OK.value();
-        String expectedMessage = "test-message";
-        ApiResponseDto responseDto = new ApiResponseDto(expectedStatusCode, expectedMessage);
+        ApiResponseDto responseDto = new ApiResponseDto(okStatus, testMessage);
         given(memberService.signup(any(SignupRequestDto.class))).willReturn(responseDto);
 
         // when
@@ -123,42 +122,98 @@ class MemberControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(signupRequestDto)))
             .andExpect(status().isOk())
-            .andExpect(jsonPath("$.statusCode").value(expectedStatusCode))
-            .andExpect(jsonPath("$.message").value(expectedMessage));
+            .andExpect(jsonPath("$.statusCode").value(okStatus))
+            .andExpect(jsonPath("$.message").value(testMessage));
     }
 
-    // todo
     @Test
     @DisplayName("회원가입: 실패 - 이메일 형식이 올바르지 않을 때")
-    void signupFailureByInvalidEmail() {
+    void signupFailureByInvalidEmail() throws Exception {
+        // given
+        SignupRequestDto signupRequestDto =
+            SignupRequestDto.builder()
+                .email("invalid email")
+                .password(testPassword)
+                .nickname(testNickname)
+                .build();
 
+        // when
+        mockMvc.perform(post("/api/members/signup")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(signupRequestDto)))
+            .andExpect(status().isBadRequest());
     }
 
-    // todo
     @Test
     @DisplayName("회원가입: 실패 - 비밀번호가 8자 미만일 때")
-    void signupFailureByTooShortPassword() {
+    void signupFailureByTooShortPassword() throws Exception {
+        // given
+        SignupRequestDto signupRequestDto =
+            SignupRequestDto.builder()
+                .email(testEmail)
+                .password("pas123!")
+                .nickname(testNickname)
+                .build();
 
+        // when
+        mockMvc.perform(post("/api/members/signup")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(signupRequestDto)))
+            .andExpect(status().isBadRequest());
     }
 
-    // todo
     @Test
     @DisplayName("회원가입: 실패 - 비밀번호 규칙(영소문자, 숫자, 특수문자 1개 이상 포함)에 맞지 않을 때")
-    void signupFailureByInvalidPassword() {
+    void signupFailureByInvalidPassword() throws Exception {
+        // given
+        SignupRequestDto signupRequestDto =
+            SignupRequestDto.builder()
+                .email(testEmail)
+                .password("password123")
+                .nickname(testNickname)
+                .build();
 
+        // when
+        mockMvc.perform(post("/api/members/signup")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(signupRequestDto)))
+            .andExpect(status().isBadRequest());
     }
 
     // todo
     @Test
     @DisplayName("회원가입: 실패 - 닉네임이 빈 칸으로 들어왔을 때")
-    void signupFailureByEmptyNickname() {
+    void signupFailureByEmptyNickname() throws Exception {
+        // given
+        SignupRequestDto signupRequestDto =
+            SignupRequestDto.builder()
+                .email(testEmail)
+                .password(testPassword)
+                .nickname("")
+                .build();
 
+        // when
+        mockMvc.perform(post("/api/members/signup")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(signupRequestDto)))
+            .andExpect(status().isBadRequest());
     }
 
     // todo
     @Test
     @DisplayName("회원가입: 실패 - 닉네임이 null 로 들어올 때")
-    void signupFailureByNullNickname() {
+    void signupFailureByNullNickname() throws Exception {
+        // given
+        SignupRequestDto signupRequestDto =
+            SignupRequestDto.builder()
+                .email(testEmail)
+                .password(testPassword)
+                .build();
 
+        // when
+        mockMvc.perform(post("/api/members/signup")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(signupRequestDto)))
+            .andExpect(status().isBadRequest());
     }
 }
