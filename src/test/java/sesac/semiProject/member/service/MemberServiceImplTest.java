@@ -5,7 +5,6 @@ import static org.mockito.BDDMockito.*;
 
 import java.util.Optional;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,7 +25,7 @@ import sesac.semiProject.member.model.Member;
 import sesac.semiProject.member.repository.MemberRepository;
 
 @ExtendWith(MockitoExtension.class)
-class MemberServiceTest {
+class MemberServiceImplTest {
     @Mock
     MemberRepository memberRepository;
 
