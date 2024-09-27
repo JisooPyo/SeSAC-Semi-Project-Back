@@ -70,7 +70,6 @@ class MemberControllerTest {
 
     @Test
     @DisplayName("멤버 닉네임 가져오기: 성공")
-    @WithMockUser
     void getNickname() throws Exception {
         // given
         Member member = Member.builder().nickname(testNickname).build();
