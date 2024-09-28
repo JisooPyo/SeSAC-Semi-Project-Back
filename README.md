@@ -90,6 +90,19 @@ jwt.secret.key={Base64로 Encoding된 문자열}
 
 ## 📜 REST API Docs
 
-![image](https://github.com/user-attachments/assets/6207cd1e-5991-4a68-8d2f-fa46edbc87e3)
+### To Do
 
-<img src="https://github.com/user-attachments/assets/c40f3e16-9e40-4640-aafb-3e8955274ffc">
+|Description|URL|Method|
+|---|---|---|
+|할 일 등록|/api/todos|POST|
+|할 일 조회|/api/todos|GET|
+|할 일 수정|/api/todos/{id}|PUT|
+|할 일 삭제|/api/todos/{id}|DELETE|
+
+### Member
+
+|Description|Method|URL|
+|---|---|---|
+|회원가입|/api/members/signup|POST|
+|로그인|/api/members/login|POST|
+|닉네임 불러오기|/api/members/nickname|GET|
