@@ -2,8 +2,6 @@
 
 ### SeSAC Semi Project
 
-기간: 24.09.10 ~
-
 ### 💁‍♀️ 기능 소개
 
 1. 회원가입, JWT 인증 방식의 로그인(Spring Security 사용)
